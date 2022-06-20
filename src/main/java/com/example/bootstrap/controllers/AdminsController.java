@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -57,7 +58,14 @@ public class AdminsController {
     @PostMapping("/admin/user/add")
     public String add(@ModelAttribute("user") User user,
                       @RequestParam("selectedRole") Long[] roleId) {
-        userService.save(user, roleId);
+
+        Set<Role> roles = new HashSet<>();
+        for (Long id: roleId) {
+            roles.add(roleService.showRole(id));
+        }
+        user.setRoles(roles);
+
+        userService.save(user);
         return "redirect:/admin";
     }
     @GetMapping("/admin/user/{id}")
@@ -74,7 +82,14 @@ public class AdminsController {
     @PostMapping("/admin/user/{id}")
     public String update(@ModelAttribute("user") User user,
                          @RequestParam("selectedRole") Long[] roleId) {
-        userService.update(user, roleId);
+
+        Set<Role> roles = new HashSet<>();
+        for (Long id: roleId) {
+            roles.add(roleService.showRole(id));
+        }
+        user.setRoles(roles);
+
+        userService.update(user);
         return "redirect:/admin";
     }
 }

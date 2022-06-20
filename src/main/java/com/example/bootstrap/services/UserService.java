@@ -6,10 +6,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import java.util.List;
 
 public interface UserService extends UserDetailsService {
-     void save(User user, Long[] roleId);
+     void save(User user);
      void delete(Long id);
      List<User> listUsers();
      User showUser(long id);
-     void update(User user, Long[] roleId);
+     void update(User user);
      User findByEmail(String name);
 }

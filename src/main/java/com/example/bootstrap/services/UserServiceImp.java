@@ -31,19 +31,9 @@ public class UserServiceImp implements UserService {
         this.roleService = roleService;
     }
 
-    public void save(User user, Long[] roleId) {
+    public void save(User user) {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        if (user.getEmail().equals("admin@mail.com")) {
-            user.getRoles().add(new Role("ADMIN"));
-        }
-
-        Set<Role> roles = new HashSet<>();
-        for (Long id: roleId) {
-            System.out.println(id + " IDDDD");
-            roles.add(roleService.showRole(id));
-        }
-         user.setRoles(roles);
         userRepository.save(user);
 
     }
@@ -57,12 +47,7 @@ public class UserServiceImp implements UserService {
         return userRepository.findById(id).orElse(null);
     }
 
-    public void update(User user, Long[] roleId) {
-        Set<Role> roles = new HashSet<>();
-        for (Long id: roleId) {
-            roles.add(roleService.showRole(id));
-        }
-        user.setRoles(roles);
+    public void update(User user) {
         userRepository.save(user);
     }
 
