@@ -24,18 +24,13 @@ public class UsersController {
 
     @GetMapping( "/")
     public String registration(@ModelAttribute("user") User user) {
-        return "registration";
+        return "login";
     }
     @GetMapping( "/login")
     public String login() {
         return "login";
     }
 
-//    @PostMapping("/registration")
-//    public String register(@ModelAttribute("user") User user) {
-//        userService.save(user);
-//        return "/login";
-//    }
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/user")
