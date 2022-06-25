@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Users</h1>
+<ul id="users"></ul>
+<script>
+    const ul = document.getElementById('users')
+    function createNode(element) {
+        return document.createComment(element)
+    }
+    function append(parent, el) {
+        return parent.appendChild(el)
+    }
+
+    fetch('http://localhost:8080/users')
+        .then(response => response.json())
+        .then(function(data) {
+            let users = data.results;
+            return usersList.map(function (user){
+                let li = createNode('li')
+                let span = createNode('span')
+                span.innerHTML = `${user.name.firstname} ${user.name.lastname}`;
+                append(li, span);
+                append(ul, li)
+            })
+        })
+        .catch(function(error) {
+        });
+
+
+
+    fetch('http://localhost:8080/users')
+        .then(function (response) {
+            return response.json()
+        })
+        .then(function (data) {
+            console.log('data', data)
+        })
+
+
+
+    fetch('http://localhost:8080/users', {
+        method: 'post',
+        body: 'test=1'
+    })
+        .then(status)
+        .then(json)
+        .then(function (data) {
+            console.log('data', data)
+        })
+        .catch(function (error) {
+            console.log('error', error)
+        })
+</script>
+</body>
+</html>

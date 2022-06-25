@@ -42,6 +42,15 @@ public class User implements UserDetails {
         return getRoles();
     }
 
+    public String getRolesName() {
+        StringBuilder sb = new StringBuilder();
+        for (Role role : roles) {
+            sb.append(role.getName());
+            sb.append(" ");
+        }
+        return sb.toString();
+    }
+
     @Override
     public String getPassword() {
         return password;

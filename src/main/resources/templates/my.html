@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    fetch('users/list')
+        .then(res => res.json())
+        .then(users => {
+            users.forEach(user => {
+                let tableFilling = `$(
+                        <tr>
+                           <td>${user.id}</td>
+                            <td>${user.firstname}</td>
+                            <td>${user.lastname}</td>
+                             <td>${user.age}</td>
+                             <td>${user.email}</td>
+                             <td>${user.role}</td>
+
+                            <td>
+
+                                     <button type="button" data-userid="${user.id}" data-action ="edit" class="btn btn-primary btn-sm text-white text-decoration-none text-center btn-info"
+                                data-toggle="modal" data-target="#someDefaultModal">Edit</button>
+
+                            </td>
+                            <td>
+                                     <button type="button" data-userid="${user.id}" data-action="delete" class="btn btn-primary btn-sm text-white text-decoration-none text-center btn-danger"
+                                data-toggle="modal" data-target="#someDefaultModal">Delete</button>
+                            </td>
+                        </tr>
+                )`;
+                $('#users_Table tbody').append(tableFilling);
+            })
+        })
+
+    // обрабатываем нажатие на любую из кнопок edit или delete
+    // достаем из нее данные и отдаем модалке, которую к тому же открываем
+    $('#users_Table').find('button').on('click', (event) => {
+        let defaultModal = $('#someDefaultModal');
+
+        let targetButton = $(event.target);
+        let buttonUserId = targetButton.attr('data-userid');
+        let buttonAction = targetButton.attr('data-action');
+
+        defaultModal.attr('data-userid', buttonUserId);
+        defaultModal.attr('data-action', buttonAction);
+        defaultModal.modal('show');
+    })
+
+
+    // что то деалем при открытии модалки и при закрытии
+    // основываясь на ее дата атрибутах
+
+
+</script>
+</body>
+</html>

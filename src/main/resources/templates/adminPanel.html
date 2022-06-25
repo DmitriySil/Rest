@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Admin panel</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+
+</head>
+
+<body style="background-color: #f8f9fa">
+<table class="table">
+    <thead>
+
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <span class="navbar-brand"
+                  th:text="${user.email} + ' with roles: ' + ${#strings.arrayJoin(user.roles, ' ')}"></span>
+            <ul class="navbar-nav justify-content-right">
+                <li class="nav-item mr-1">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    </thead>
+
+
+
+    <tr class="row">
+        <td class="col-2 bg-white">
+
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col bg-white">
+                        <ul class="nav nav-pills flex-column">
+                            <li class="nav-item">
+                                <a href="/adminPanel" class="nav-link active">Admin</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/user" class="nav-link">User</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+        </td>
+
+        <td class="col-10 bg-light">
+            <H1>Admin panel</H1>
+            <nav>
+
+
+                <div class="nav nav-tabs" role="tablist">
+                    <a class="nav-item nav-link active" data-toggle="tab" id="usersTable" role="tab" href="#users_Table">Users table</a>
+                    <a class="nav-item nav-link" data-toggle="tab" id="SliderNewUserForm" role="tab" href="#defaultSomeForm">New user</a>
+                </div>
+
+            </nav>
+            <div class="tab-content">
+                <div class="tab-pane fade show active border" id="users_Table" role="tabpanel">
+                    <div class="pl-3 pt-1 d-flex border-bottom"><h4> All users</h4></div>
+                    <div class="bg-white p-3">
+
+                        <table class="table table-striped border-top">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Firstname</th>
+                                <th>Lastname</th>
+                                <th>Age</th>
+                                <th>Email</th>
+                                <th>Role(s)</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody id="data">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+                <!--форма заполнения нового юзера и две кнопки-->
+                <div class="tab-pane fade " id="defaultSomeForm" role="tabpanel">
+                    <div class="pl-3 pt-1 d-flex border-bottom">
+                                <h4>Add new User</h4>
+                        <form class="form-signin mx-auto font-weight-bold text-center p-2"
+                              style="width: 300px;">
+                            <label class="form-label">First name</label>
+                                <input class="form-control" id="AddNewUserFirstName" type="text" placeholder="Firstname">
+                            <label class="form-label">Last name</label>
+                                <input class="form-control" id="AddNewUserLastName" type="text" placeholder="Lastname">
+                            <label class="form-label">Age</label>
+                                <input class="form-control" id="AddNewUserAge" type="number" placeholder="age">
+                            <label class="form-label">Email </label>
+                                <input class="form-control" id="AddNewUserEmail" type="text" placeholder="Email">
+                            <label class="form-label">Password</label>
+                                <input class="form-control" id="AddNewUserPassword" type="password" placeholder="password">
+                            <label class="form-label">Role</label>
+                                <select class="custom-select"
+                                        size="2"
+                                        multiple name="roles"
+                                        id="AddNewUserRoles" required>
+                                    <option value="1">ADMIN</option>
+                                    <option value="2">USER</option>
+                                </select>
+                                <br>
+                                <br>
+
+                                <button class="btn btn-primary mb-2" type="button" id="addNewUserButton">Add new user</button>
+                        </form>
+                    </div>
+                </div>
+                </div>
+
+
+
+            <!--Модальное окно -->
+            <div class="modal fade" id="someDefaultModal" tabindex="-1" role="dialog" aria-labelledby="someDefaultModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                        </div>
+
+                        <div class="modal-footer">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script src="/f__ing_JS.js"></script>
+
+</table>
+</body>
+</html>
+
+
+
+
