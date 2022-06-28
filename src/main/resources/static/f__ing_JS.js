@@ -117,6 +117,10 @@ async function editUser(modal, id) {
         let email = modal.find("#email").val().trim();
         let password = modal.find("#password").val().trim();
         let age = modal.find("#age").val().trim();
+        if(age < 18) {
+            alert("age < 18");
+            return false;
+        }
         let roles = modal.find("#roles").val();
         let data = {
             id: id,
