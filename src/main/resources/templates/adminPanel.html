@@ -94,7 +94,7 @@
                 <div class="tab-pane fade " id="defaultSomeForm" role="tabpanel">
                     <div class="pl-3 pt-1 d-flex border-bottom">
                                 <h4>Add new User</h4>
-                        <form class="form-signin mx-auto font-weight-bold text-center p-2"
+                        <form name="form" class="form-signin mx-auto font-weight-bold text-center p-2"
                               style="width: 300px;">
                             <label class="form-label">First name</label>
                                 <input class="form-control" id="AddNewUserFirstName" type="text" placeholder="Firstname">
@@ -103,14 +103,15 @@
                             <label class="form-label">Age</label>
                                 <input class="form-control" id="AddNewUserAge" type="number" placeholder="age">
                             <label class="form-label">Email </label>
-                                <input class="form-control" id="AddNewUserEmail" type="text" placeholder="Email">
+                                <input class="form-control" id="AddNewUserEmail" type="email" placeholder="Email">
                             <label class="form-label">Password</label>
                                 <input class="form-control" id="AddNewUserPassword" type="password" placeholder="password">
                             <label class="form-label">Role</label>
-                                <select class="custom-select"
+                                <select class="custom-select required"
                                         size="2"
                                         multiple name="roles"
                                         id="AddNewUserRoles" required>
+                                    <option disabled selected></option>
                                     <option value="1">ADMIN</option>
                                     <option value="2">USER</option>
                                 </select>

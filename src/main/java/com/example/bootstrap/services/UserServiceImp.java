@@ -43,7 +43,7 @@ public class UserServiceImp implements UserService {
     public List<User> listUsers() {
         return userRepository.findAll();
     }
-    public User showUser(long id) {
+    public User getUserById(long id) {
         return userRepository.findById(id).orElse(null);
     }
 

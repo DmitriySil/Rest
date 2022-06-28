@@ -12,11 +12,11 @@ const userFetchService = {
         'Content-Type': 'application/json',
         'Referer': null
     },
-    findAllUsers: async () => await fetch('users'),
-    addNewUser: async (user) => await fetch('users', {method: 'POST', headers: userFetchService.head, body: JSON.stringify(user)}),
-    findOneUser: async (id) => await fetch(`users/${id}`),
-    updateUser: async (user, id) => await fetch(`users/${id}`, {method: 'PUT', headers: userFetchService.head, body: JSON.stringify(user)}),
-    deleteUser: async (id) => await fetch(`users/${id}`, {method: 'DELETE', headers: userFetchService.head})
+    findAllUsers: async () => await fetch('/users'),
+    addNewUser: async (user) => await fetch('/users', {method: 'POST', headers: userFetchService.head, body: JSON.stringify(user)}),
+    findOneUser: async (id) => await fetch(`/users/${id}`),
+    updateUser: async (user, id) => await fetch(`/users/${id}`, {method: 'PUT', headers: userFetchService.head, body: JSON.stringify(user)}),
+    deleteUser: async (id) => await fetch(`/users/${id}`, {method: 'DELETE', headers: userFetchService.head})
 
 }
 
@@ -244,17 +244,50 @@ async function getNewUserForm() {
             form.show();
     })
 }
+function validateForm()  {
+    let u = document.getElementById("AddNewUserFirstName").value;
+    let p = document.getElementById("AddNewUserLastName").value;
 
+    if(u=== "") {
+        alert("Please enter your Username");
+        return false;
+    }
+    if(p === "") {
+        alert("Please enter you Password");
+        return false;
+    }
+
+    alert("All datas are valid!, send it to the server!")
+
+    return true;
+}
 
 async function addNewUser() {
     $('#addNewUserButton').click(async () =>  {
         let addUserForm = $('#defaultSomeForm')
         let firstname = addUserForm.find('#AddNewUserFirstName').val().trim();
+        if(firstname === "") {
+            alert("incorrectly");
+            return false;
+        }
         let lastname = addUserForm.find('#AddNewUserLastName').val().trim();
+        if(lastname === "") {
+            alert("incorrectly");
+            return false;
+        }
         let age = addUserForm.find('#AddNewUserAge').val().trim();
+        if(age < 18) {
+            alert("age < 18");
+            return false;
+        }
         let email = addUserForm.find('#AddNewUserEmail').val().trim();
         let password = addUserForm.find('#AddNewUserPassword').val().trim();
         let roles = addUserForm.find('#AddNewUserRoles').val()
+        if($('#AddNewUserRoles option:selected').val() === "") {
+                alert("Please enter role");
+                return false;
+            }
+
         let data = {
             firstname: firstname,
             lastname: lastname,

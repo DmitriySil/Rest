@@ -5,9 +5,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.*;
 
-@Data
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
@@ -16,19 +19,28 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(nullable = false)
+    @NotEmpty
+    @Size(min = 2, max = 20)
     private String firstname;
 
-    @Column
+    @Column(nullable = false)
+    @NotEmpty
+    @Size(min = 2, max = 20)
     private String lastname;
 
     @Column
+    @Min(value = 18, message = "Age < 18")
     private int age;
 
-    @Column(unique = true)
+
+    @Column(unique = true, nullable = false)
+    @NotEmpty
+    @Email
     private String email;
 
-    @Column
+    @Column(nullable = false)
+    @NotEmpty
     private String password;
 
 
@@ -79,5 +91,57 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

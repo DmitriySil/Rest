@@ -7,6 +7,8 @@ import com.example.bootstrap.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -24,7 +26,7 @@ public class UserRestController {
 
 
     @PostMapping(value = "/users")
-    public ResponseEntity<User> create(@RequestBody User user) { //, @RequestParam("AddNewUserRole[]") String[] names
+    public ResponseEntity<User> create(@RequestBody @Valid User user) {
 
         Set<Role> roles = new HashSet<>();
         for (Role name:  user.getRoles()) {
@@ -47,7 +49,7 @@ public class UserRestController {
 
     @GetMapping(value = "/users/{id}")
     public ResponseEntity<User> read(@PathVariable(name = "id") int id) {
-        final User user = userService.showUser(id);
+        final User user = userService.getUserById(id);
 
         return user != null
                 ? new ResponseEntity<>(user, HttpStatus.OK)
@@ -55,7 +57,7 @@ public class UserRestController {
     }
 
     @PutMapping(value = "/users/{id}")
-    public ResponseEntity<?> update(@RequestBody User user) {
+    public ResponseEntity<?> update(@Valid @RequestBody User user) {
         System.out.println("update");
 
         Set<Role> roles = new HashSet<>();
